@@ -11,6 +11,7 @@ COPY nginx/default.conf /etc/nginx/http.d/default.conf
 COPY entrypoint.sh .
 COPY api api
 COPY templates templates
+COPY static static
 COPY app.py .
 
 EXPOSE 8000
