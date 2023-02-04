@@ -1,0 +1,12 @@
+services:
+  api-messages:
+    build: ./api-messages
+    restart: always
+
+  web-frontend:
+    build: ./web-frontend
+    restart: always
+    ports:
+      - 80:80
+    environment:
+      API_MESSAGES_BASE_URL: http://api-messages
