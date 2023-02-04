@@ -1,5 +1,6 @@
 # docker-build-test
-A simple repo for testing docker image building
+
+A simple repo for testing docker image building automation
 
 ## Running the services locally
 
@@ -11,20 +12,20 @@ Run `api-messages`
 cd api-messages
 
 # only need to do this once or after adding new requirements
-./setup.sh
+./scripts/setup.sh
 
-./run.sh
+./scripts/run.sh
 ```
 
 In a second shell, run `web-frontend`
 
 ```shell
-cd api-messages
+cd web-frontend
 
 # only need to do this once or after adding new requirements
-./setup.sh
+./scripts/setup.sh
 
-./run.sh
+./scripts/run.sh
 ```
 
 In your web browser, open the `web-frontend` site at [http://localhost:5000](http://localhost:5000)
@@ -33,7 +34,7 @@ You can also call the `api-messages` api directly at [http://localhost:5001/api/
 
 ## Testing the docker build
 
-You need `docker` and `docker compose` on your local machin
+You need `docker` and `docker compose` on your local machine.
 I recommend Docker for Desktop.
 
 ```
@@ -41,7 +42,7 @@ I recommend Docker for Desktop.
 docker-compose up -d --build
 
 # OR if you use Docker for Desktop
-docker-compose up -d --build
+docker compose up -d --build
 ```
 
 In your web browser, open the `web-frontend` site at [http://localhost](http://localhost) at port 80.
