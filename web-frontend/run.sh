@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 
-flask run -p 5000
+. ./venv/bin/activate
+flask run -p 5001
