@@ -49,8 +49,6 @@ kind: Ingress
 metadata:
   name: web-frontend-ingress
   namespace: my-new-workspace
-  annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   rules:
     - host: 192.168.1.100.nip.io # update ip or use an actual domain name

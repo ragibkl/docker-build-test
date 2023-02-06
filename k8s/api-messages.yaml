@@ -3,22 +3,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: my-new-workspace
-  name: api-backend
+  name: api-messages
   labels:
-    app: api-backend
+    app: api-messages
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: api-backend
+      app: api-messages
   template:
     metadata:
       labels:
-        app: api-backend
+        app: api-messages
     spec:
       containers:
-        - name: api-backend
-          image: ragibkl/example-api-backend:0.1.0 # update the version number as needed
+        - name: api-messages
+          image: ragibkl/example-api-messages:0.1.0 # update the version number as needed
           imagePullPolicy: Always
           ports:
             - containerPort: 80
@@ -28,9 +28,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: my-new-workspace
-  name: api-backend-svc
+  name: api-messages-svc
   labels:
-    app: api-backend-svc
+    app: api-messages-svc
 spec:
   ports:
     - name: tcp80
@@ -38,4 +38,4 @@ spec:
       targetPort: 80
       protocol: TCP
   selector:
-    app: api-backend
+    app: api-messages
