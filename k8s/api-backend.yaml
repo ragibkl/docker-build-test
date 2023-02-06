@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: my-new-workspace
+  name: api-backend
+  labels:
+    app: api-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-backend
+  template:
+    metadata:
+      labels:
+        app: api-backend
+    spec:
+      containers:
+        - name: api-backend
+          image: ragibkl/example-api-backend:0.1.0 # update the version number as needed
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: my-new-workspace
+  name: api-backend-svc
+  labels:
+    app: api-backend-svc
+spec:
+  ports:
+    - name: tcp80
+      port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: api-backend

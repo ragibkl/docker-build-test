@@ -1,0 +1,65 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: my-new-workspace
+  name: web-frontend
+  labels:
+    app: web-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: web-frontend
+  template:
+    metadata:
+      labels:
+        app: web-frontend
+    spec:
+      containers:
+        - name: web-frontend
+          image: ragibkl/example-web-frontend:0.1.0 # update the version number as needed
+          imagePullPolicy: Always
+          env:
+            - name: API_MESSAGES_BASE_URL
+              value: http://api-messages-svc
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: my-new-workspace
+  name: web-frontend-svc
+  labels:
+    app: web-frontend-svc
+spec:
+  ports:
+    - name: tcp80
+      port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: web-frontend
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: web-frontend-ingress
+  namespace: my-new-workspace
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  rules:
+    - host: 192.168.1.100.nip.io # update ip or use an actual domain name
+      http:
+        paths:
+          - backend:
+              service:
+                name: web-frontend-svc
+                port:
+                  number: 80
+            path: /
+            pathType: Prefix
